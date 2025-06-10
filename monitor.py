@@ -12,7 +12,7 @@ config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
 # Configuring loggin
-loggin.basicConfig(filename='/var/log/system_monitor.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='/var/log/system_monitor.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 CPU_THRESHOLD = float(config['Monitoring']['cpu_threshold'])
@@ -68,37 +68,12 @@ def send_email_alert(message):
 def main():
     metrics = {
             "timestamp":
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S),
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "cpu_usage": check_cpu(),
             "memory_usage": check_memory(),
             "disk_usage": check_disk()
             }
-            logging.info(f"Metrics: {metrics}")
+    logging.info(f"Metrics: {metrics}")
 
-if __name__ = "__main__":
-                                    main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    main()
